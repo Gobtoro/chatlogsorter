@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RED Chatlog Sorter</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://www.upload.ee/image/19224966/red.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-glow blob-1"></div>
+    <div class="bg-glow blob-2"></div>
+
+    <div class="container fade-in">
+      <div class="logo-container">
+        <img
+          src="https://www.upload.ee/image/19224966/red.png"
+          alt="Logo Server"
+        />
+      </div>
+
+      <h1>Interview Chatlog Sorter</h1>
+      <p class="subtitle">Log cleaner for IC Interview</p>
+
+      <div class="controls">
+        <label class="toggle-container">
+          <input type="checkbox" id="hapusTimestamp" checked />
+          <span class="slider"></span>
+          <span class="toggle-label">Remove [HH:MM:SS]</span>
+        </label>
+        <label class="toggle-container">
+          <input type="checkbox" id="hanyaIC" checked />
+          <span class="slider"></span>
+          <span class="toggle-label">Remove OOC (( ))</span>
+        </label>
+        <label class="toggle-container">
+          <input type="checkbox" id="hapusWarna" checked />
+          <span class="slider"></span>
+          <span class="toggle-label">Remove {HEX}</span>
+        </label>
+        <button class="btn-sortir" onclick="sortirLog()">Sortir Chatlog</button>
+      </div>
+
+      <div class="filter-section">
+        <h3>Masukkan Nama Karakter</h3>
+        <div id="dynamicNameContainer">
+          <div class="input-row slide-in">
+            <input
+              type="text"
+              class="nama-input"
+              placeholder="Contoh: John Doe"
+            />
+            <button class="btn-icon btn-add" onclick="tambahBaris()">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="input-group">
+          <h3>Raw Log</h3>
+          <textarea
+            id="inputLog"
+            placeholder="Paste chatlog kamu di sini..."
+          ></textarea>
+        </div>
+
+        <div class="input-group">
+          <div class="group-header">
+            <h3>Cleaned Log</h3>
+            <button id="copyBtn" class="btn-copy" onclick="copyLog()">
+              Copy Text
+            </button>
+          </div>
+          <textarea
+            id="outputLog"
+            readonly
+            placeholder="Klik Sortir Chatlog dan hasilnya akan otomatis muncul di sini..."
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Developed by mobmoB</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

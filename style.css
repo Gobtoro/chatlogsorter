@@ -1,0 +1,384 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg-main: #09090b; /* Latar yang lebih gelap */
+  --card-bg: rgba(24, 24, 27, 0.65); /* Transparan untuk efek kaca */
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text-main: #fafafa;
+  --text-muted: #a1a1aa;
+  --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --accent-hover: linear-gradient(135deg, #2563eb, #7c3aed);
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 40px 20px;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Efek Cahaya (Blobs) di Latar Belakang */
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.4;
+  animation: pulseGlow 8s infinite alternate;
+}
+.blob-1 {
+  top: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: #3b82f6;
+}
+.blob-2 {
+  bottom: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: #8b5cf6;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+}
+
+/* Animasi Muncul saat halaman dimuat */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glassmorphism Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.logo-container img {
+  max-width: 120px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+.logo-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Teks Gradient */
+h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+  background: var(--accent-gradient);
+
+  /* Perbaikan untuk error background-clip */
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+
+  letter-spacing: -1px;
+}
+
+p.subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0 0 35px 0;
+}
+
+.controls {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--card-border);
+}
+
+/* TOGGLE SWITCH MODERN */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.toggle-container input {
+  display: none;
+}
+.slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: #3f3f46;
+  border-radius: 34px;
+  transition: 0.3s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.toggle-container input:checked + .slider {
+  background: var(--accent-gradient);
+}
+.toggle-container input:checked + .slider:before {
+  transform: translateX(20px);
+}
+.toggle-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color 0.3s;
+  font-weight: 500;
+}
+.toggle-container input:checked ~ .toggle-label {
+  color: var(--text-main);
+}
+
+/* Tombol Utama */
+.btn-sortir {
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+.btn-sortir:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.6);
+}
+.btn-sortir:active {
+  transform: translateY(1px);
+}
+
+/* Area Filter */
+.filter-section {
+  margin-bottom: 30px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.input-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Animasi untuk baris baru */
+.slide-in {
+  animation: slideDown 0.3s ease-out forwards;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-row input[type="text"] {
+  flex: 1;
+  background: rgba(24, 24, 27, 0.8);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+  padding: 14px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.input-row input[type="text"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.btn-icon {
+  width: 48px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.btn-add {
+  background: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.btn-add:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-remove {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.btn-remove:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Grid & Textarea */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+h3 {
+  font-size: 15px;
+  color: var(--text-main);
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+textarea {
+  width: 100%;
+  height: 380px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #e4e4e7;
+  border: 1px solid var(--card-border);
+  padding: 18px;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 13px;
+  border-radius: 12px;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Layout untuk Judul dan Tombol Copy */
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.group-header h3 {
+  margin-bottom: 0; /* Menghilangkan margin bawah bawaan h3 */
+}
+
+/* Styling Tombol Copy */
+.btn-copy {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-copy:hover {
+  background: #3b82f6;
+  color: white;
+}
