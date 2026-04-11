@@ -51,34 +51,50 @@ function sortirLog() {
     let hasil = [];
 
     for (let line of lines) {
-      if (!line.trim()) continue;
+            if (!line.trim()) continue;
 
-      if (hanyaIC && line.includes("((") && line.includes("))")) continue;
-      if (line.startsWith("***") || line.startsWith("SERVER:")) continue;
+            // Buat salinan teks tanpa timestamp khusus untuk dianalisis
+            // (Agar pengecekan tanda bintang (*) tidak terhalang oleh [HH:MM:SS])
+            let textToAnalyze = line.replace(/\[\d{2}:\d{2}:\d{2}\]\s*/g, '').trim();
 
-      if (namaArray.length > 0) {
-        let textLower = line.toLowerCase();
-        let matchDitemukan = false;
+            // Logika baru untuk Filter OOC
+            if (hanyaIC && textToAnalyze.includes('((') && textToAnalyze.includes('))')) {
+                // Jika TIDAK diawali dengan bintang (*), berarti ini murni chat OOC (misal: /b atau PM). Kita buang.
+                // Jika diawali bintang (*), berarti ini adalah /do, jadi kita biarkan lolos.
+                if (!textToAnalyze.startsWith('*')) {
+                    continue; 
+                }
+            }
 
-        for (let nama of namaArray) {
-          if (textLower.includes(nama)) {
-            matchDitemukan = true;
-            break;
-          }
+            // Filter Pesan Server
+            if (line.startsWith('***') || line.startsWith('SERVER:')) continue;
+
+            // Logika Pengecekan Multiple Nama
+            if (namaArray.length > 0) {
+                let textLower = line.toLowerCase();
+                let matchDitemukan = false;
+                
+                for (let nama of namaArray) {
+                    if (textLower.includes(nama)) {
+                        matchDitemukan = true;
+                        break; 
+                    }
+                }
+                if (!matchDitemukan) continue;
+            }
+
+            // Pembersihan Warna Hex
+            if (hapusWarna) {
+                line = line.replace(/\{[a-fA-F0-9]{6}\}/g, '');
+            }
+
+            // Pembersihan Timestamp di hasil akhir (jika dicentang)
+            if (hapusTimestamp) {
+                line = line.replace(/\[\d{2}:\d{2}:\d{2}\]\s*/g, '');
+            }
+
+            hasil.push(line);
         }
-        if (!matchDitemukan) continue;
-      }
-
-      if (hapusWarna) {
-        line = line.replace(/\{[a-fA-F0-9]{6}\}/g, "");
-      }
-
-      if (hapusTimestamp) {
-        line = line.replace(/\[\d{2}:\d{2}:\d{2}\]\s*/g, "");
-      }
-
-      hasil.push(line);
-    }
 
     document.getElementById("outputLog").value = hasil.join("\n");
     btn.innerText = originalText; // Kembalikan teks tombol
